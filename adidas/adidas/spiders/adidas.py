@@ -26,6 +26,13 @@ class Adidas(scrapy.Spider):
         for url in urls:
             yield scrapy.Request(url, method="GET", callback=self.parse_item)
 
+        current_page = int(response['search_options']['page'])
+        total_page = int(response['search_options']['page_total'])
+        if current_page < total_page:
+            page = current_page + 1
+            next_page = f"https://shop.adidas.jp/f/v1/pub/product/list?gender=mens&page={page}"
+            # print(next_page)
+            yield scrapy.Request(next_page, method="GET", callback=self.parse_items)
 
     def parse_item(self, response):
         loader = ItemLoader(item=AdidasItem(), response=response)

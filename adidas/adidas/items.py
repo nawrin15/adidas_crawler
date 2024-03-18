@@ -53,7 +53,7 @@ class AdidasItem(scrapy.Item):
         input_processor=MapCompose(),
         output_processor=Join('\n')
     )
-    articleFeatures = scrapy.Field(
+    article_features = scrapy.Field(
         input_processor=MapCompose(),
         output_processor=Join('\n')
     )
